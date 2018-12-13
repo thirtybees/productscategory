@@ -6,6 +6,7 @@ tags:
   - product page
   - crossselling
   - similar products
+  - productscategory
 description_short: Adds a block on the product page that displays products from the same category.
 description: description.md
 images:
