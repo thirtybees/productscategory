@@ -147,6 +147,11 @@ class ProductsCategory extends Module
 				$taxes = Product::getTaxCalculationMethod();
 				if (Configuration::get('PRODUCTSCATEGORY_DISPLAY_PRICE'))
 				{
+                    $displayDecimals = 0;
+                    if ($this->context->currency->decimals) {
+                        $displayDecimals =
+                            Configuration::get('PS_PRICE_DISPLAY_PRECISION');
+                    }
 					foreach ($category_products as $key => $category_product)
 					{
 						if ($category_product['id_product'] != $id_product)
@@ -157,7 +162,7 @@ class ProductsCategory extends Module
 									(int)$category_product['id_product'],
 									true,
 									null,
-									2
+                                    $displayDecimals
 								);
 							} elseif ($taxes == 1)
 							{
@@ -165,7 +170,7 @@ class ProductsCategory extends Module
 									(int)$category_product['id_product'],
 									false,
 									null,
-									2
+                                    $displayDecimals
 								);
 							}
 						}
