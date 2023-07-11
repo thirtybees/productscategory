@@ -24,8 +24,8 @@
 
 function pc_serialScrollFixLock(event, targeted, scrolled, items, position)
 {
-	var leftArrow = position == 0 ? true : false;
-	var rightArrow = position + 5 >= $('#productscategory_list li:visible').length ? true : false;
+	var leftArrow = position == 0;
+	var rightArrow = position + 5 >= $('#productscategory_list li:visible').length;
 
 	$('a#productscategory_scroll_left').css('cursor', leftArrow ? 'default' : 'pointer').fadeTo(0, leftArrow ? 0 : 1);
 	$('a#productscategory_scroll_right').css('cursor', rightArrow ? 'default' : 'pointer').fadeTo(0, rightArrow ? 0 : 1).css('display', rightArrow ? 'none' : 'block');
