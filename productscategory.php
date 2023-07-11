@@ -23,8 +23,9 @@
  * PrestaShop is an internationally registered trademark of PrestaShop SA.
  */
 
-if (!defined('_TB_VERSION_'))
+if (!defined('_TB_VERSION_')) {
     exit;
+}
 
 class ProductsCategory extends Module
 {
@@ -95,8 +96,9 @@ class ProductsCategory extends Module
         if (Tools::isSubmit('submitCross') &&
             Tools::getValue('PRODUCTSCATEGORY_DISPLAY_PRICE') != 0 &&
             Tools::getValue('PRODUCTSCATEGORY_DISPLAY_PRICE') != 1
-        )
+        ) {
             $this->html .= $this->displayError('Invalid displayPrice.');
+        }
         elseif (Tools::isSubmit('submitCross')) {
             Configuration::updateValue(
                 'PRODUCTSCATEGORY_DISPLAY_PRICE',
@@ -208,15 +210,18 @@ class ProductsCategory extends Module
         if (!$this->isCached('productscategory.tpl', $this->getCacheId($cache_id))) {
 
             $category = false;
-            if (isset($params['category']->id_category))
+            if (isset($params['category']->id_category)) {
                 $category = $params['category'];
+            }
             else {
-                if (isset($product->id_category_default) && $product->id_category_default > 1)
+                if (isset($product->id_category_default) && $product->id_category_default > 1) {
                     $category = new Category((int)$product->id_category_default);
+                }
             }
 
-            if (!Validate::isLoadedObject($category) || !$category->active)
+            if (!Validate::isLoadedObject($category) || !$category->active) {
                 return false;
+            }
 
             // Get infos
             $category_products = $category->getProducts($this->context->language->id, 1, 100); /* 100 products max. */
@@ -301,8 +306,9 @@ class ProductsCategory extends Module
     {
         if ($products) {
             foreach ($products as $key => $product) {
-                if ($product['id_product'] == $id_current)
+                if ($product['id_product'] == $id_current) {
                     return $key;
+                }
             }
         }
 
@@ -316,8 +322,9 @@ class ProductsCategory extends Module
      */
     public function hookHeader($params)
     {
-        if (!isset($this->context->controller->php_self) || $this->context->controller->php_self != 'product')
+        if (!isset($this->context->controller->php_self) || $this->context->controller->php_self != 'product') {
             return;
+        }
         $this->context->controller->addCSS($this->_path . 'css/productscategory.css', 'all');
         $this->context->controller->addJS($this->_path . 'js/productscategory.js');
         $this->context->controller->addJqueryPlugin(['scrollTo', 'serialScroll', 'bxslider']);
@@ -332,8 +339,9 @@ class ProductsCategory extends Module
      */
     public function hookAddProduct($params)
     {
-        if (!isset($params['product']))
+        if (!isset($params['product'])) {
             return;
+        }
         $id_product = (int)$params['product']->id;
         $product = $params['product'];
 
@@ -350,8 +358,9 @@ class ProductsCategory extends Module
      */
     public function hookUpdateProduct($params)
     {
-        if (!isset($params['product']))
+        if (!isset($params['product'])) {
             return;
+        }
         $id_product = (int)$params['product']->id;
         $product = $params['product'];
 
@@ -368,8 +377,9 @@ class ProductsCategory extends Module
      */
     public function hookDeleteProduct($params)
     {
-        if (!isset($params['product']))
+        if (!isset($params['product'])) {
             return;
+        }
         $id_product = (int)$params['product']->id;
         $product = $params['product'];
 
