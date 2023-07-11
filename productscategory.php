@@ -239,11 +239,7 @@ class ProductsCategory extends Module
 
                 $taxes = Product::getTaxCalculationMethod();
                 if (Configuration::get('PRODUCTSCATEGORY_DISPLAY_PRICE')) {
-                    $displayDecimals = 0;
-                    if ($this->context->currency->decimals) {
-                        $displayDecimals =
-                            Configuration::get('PS_PRICE_DISPLAY_PRECISION');
-                    }
+                    $displayDecimals = $this->getCurrencyDisplayPrecision($this->context->currency);
                     foreach ($category_products as $key => $category_product) {
                         if ($category_product['id_product'] != $id_product) {
                             if ($taxes == 0 || $taxes == 2) {
@@ -385,6 +381,23 @@ class ProductsCategory extends Module
 
         $cache_id = 'productscategory|' . $id_product . '|' . (isset($params['category']->id_category) ? (int)$params['category']->id_category : (int)$product->id_category_default);
         $this->_clearCache('productscategory.tpl', $this->getCacheId($cache_id));
+    }
+
+    /**
+     * @param Currency $currency
+     *
+     * @return int
+     * @throws PrestaShopException
+     */
+    protected function getCurrencyDisplayPrecision($currency)
+    {
+        if (method_exists($currency, 'getDisplayPrecision')) {
+            return $currency->getDisplayPrecision();
+        }
+        if ($currency->decimals) {
+            return (int)Configuration::get('PS_PRICE_DISPLAY_PRECISION');
+        }
+        return 0;
     }
 
 }
