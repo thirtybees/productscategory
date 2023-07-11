@@ -48,7 +48,7 @@ class ProductsCategory extends Module
         $this->description = $this->l('Adds a block on the product page that displays products from the same category.');
         $this->tb_versions_compliancy = '> 1.0.0';
         $this->tb_min_version = '1.0.0';
-        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => '1.6.99.99');
+        $this->ps_versions_compliancy = ['min' => '1.6', 'max' => '1.6.99.99'];
     }
 
     /**
@@ -118,37 +118,37 @@ class ProductsCategory extends Module
      */
     public function renderForm()
     {
-        $fields_form = array(
-            'form' => array(
-                'legend' => array(
+        $fields_form = [
+            'form' => [
+                'legend' => [
                     'title' => $this->l('Settings'),
                     'icon' => 'icon-cogs'
-                ),
-                'input' => array(
-                    array(
+                ],
+                'input' => [
+                    [
                         'type' => 'switch',
                         'label' => $this->l('Display products\' prices'),
                         'desc' => $this->l('Show the prices of the products displayed in the block.'),
                         'name' => 'PRODUCTSCATEGORY_DISPLAY_PRICE',
-                        'values' => array(
-                            array(
+                        'values' => [
+                            [
                                 'id' => 'active_on',
                                 'value' => 1,
                                 'label' => $this->l('Enabled')
-                            ),
-                            array(
+                            ],
+                            [
                                 'id' => 'active_off',
                                 'value' => 0,
                                 'label' => $this->l('Disabled')
-                            )
-                        ),
-                    ),
-                ),
-                'submit' => array(
+                            ]
+                        ],
+                    ],
+                ],
+                'submit' => [
                     'title' => $this->l('Save'),
-                )
-            ),
-        );
+                ]
+            ],
+        ];
 
         /** @var AdminController $controller */
         $controller = $this->context->controller;
@@ -167,13 +167,13 @@ class ProductsCategory extends Module
                 false
             ) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
-        $helper->tpl_vars = array(
+        $helper->tpl_vars = [
             'fields_value' => $this->getConfigFieldsValues(),
             'languages' => $controller->getLanguages(),
             'id_language' => $this->context->language->id
-        );
+        ];
 
-        return $helper->generateForm(array($fields_form));
+        return $helper->generateForm([$fields_form]);
     }
 
     /**
@@ -182,12 +182,12 @@ class ProductsCategory extends Module
      */
     public function getConfigFieldsValues()
     {
-        return array(
+        return [
             'PRODUCTSCATEGORY_DISPLAY_PRICE' => Tools::getValue(
                 'PRODUCTSCATEGORY_DISPLAY_PRICE',
                 Configuration::get('PRODUCTSCATEGORY_DISPLAY_PRICE')
             ),
-        );
+        ];
     }
 
     /**
@@ -280,11 +280,11 @@ class ProductsCategory extends Module
 
             // Display tpl
             $this->smarty->assign(
-                array(
+                [
                     'categoryProducts' => $category_products,
                     'middlePosition' => (int)$middle_position,
                     'ProdDisplayPrice' => Configuration::get('PRODUCTSCATEGORY_DISPLAY_PRICE')
-                )
+                ]
             );
         }
 
@@ -320,7 +320,7 @@ class ProductsCategory extends Module
             return;
         $this->context->controller->addCSS($this->_path . 'css/productscategory.css', 'all');
         $this->context->controller->addJS($this->_path . 'js/productscategory.js');
-        $this->context->controller->addJqueryPlugin(array('scrollTo', 'serialScroll', 'bxslider'));
+        $this->context->controller->addJqueryPlugin(['scrollTo', 'serialScroll', 'bxslider']);
     }
 
     /**
