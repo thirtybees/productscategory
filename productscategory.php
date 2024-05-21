@@ -225,11 +225,14 @@ class ProductsCategory extends Module
 
             // Get infos
             $category_products = $category->getProducts($this->context->language->id, 1, 100); /* 100 products max. */
+            if (! is_array($category_products)) {
+                $category_products = [];
+            }
             $nb_category_products = (int)count($category_products);
             $middle_position = 0;
 
             // Remove current product from the list
-            if (is_array($category_products) && count($category_products)) {
+            if ($category_products) {
                 foreach ($category_products as $key => $category_product) {
                     if ($category_product['id_product'] == $id_product) {
                         unset($category_products[$key]);
