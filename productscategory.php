@@ -37,7 +37,7 @@ class ProductsCategory extends Module
     public function __construct()
     {
         $this->name = 'productscategory';
-        $this->version = '2.0.3';
+        $this->version = '2.0.4';
         $this->author = 'thirty bees';
         $this->tab = 'front_office_features';
         $this->need_instance = 0;
